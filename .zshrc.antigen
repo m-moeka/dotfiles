@@ -6,15 +6,18 @@ antigen use oh-my-zsh
 
 antigen bundle lein
 antigen bundle command-not-found
+antigen bundle git
+antigen bundle macos
+antigen bundle brew
 
 antigen bundle zsh-users/zsh-completions # 補完(サブコマンドなども候補に含める)
 antigen bundle zsh-users/zsh-syntax-highlighting 
 antigen bundle zsh-users/zsh-autosuggestions # 補完(候補を薄く表示する)
 
-antigen bundle git
-antigen bundle osx
-antigen bundle brew
+antigen bundle b4b4r07/enhancd enhancd.plugin.zsh
 
 # Load the theme.
 antigen theme robbyrussell
+
+# Tell antigen that you're done.
 antigen apply

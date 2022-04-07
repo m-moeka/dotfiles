@@ -4,18 +4,20 @@ brew 'jq'
 brew 'mas'
 brew 'openssl'
 brew 'peco'
+brew 'shellcheck'
 brew 'tig'
 brew 'tree'
 brew 'zsh'
 brew 'anyenv'
 brew 'yarn'
+brew 'awscli'
+brew 'fzy' # for enhanced
 
 tap 'microsoft/git'
 cask 'git-credential-manager-core'
 
 cask '1password'
 cask 'alfred'
-cask 'app-cleaner'
 cask 'dash'
 cask 'deepl'
 cask 'docker'
@@ -33,4 +35,4 @@ cask 'todoist'
 cask 'visual-studio-code'
 cask 'xmind'
 
-mas 'GoodNotes 5', id: 1480793815
+mas 'GoodNotes 5', id: 1444383602
