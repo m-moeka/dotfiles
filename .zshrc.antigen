@@ -1,14 +1,13 @@
+#!/bin/bash
+
 # antigen.zshの読み込み
+# shellcheck source=/dev/null
 source ~/.zsh/antigen/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
 
-antigen bundle lein
-antigen bundle command-not-found
 antigen bundle git
-antigen bundle macos
-antigen bundle brew
 
 antigen bundle zsh-users/zsh-completions # 補完(サブコマンドなども候補に含める)
 antigen bundle zsh-users/zsh-syntax-highlighting 
@@ -17,7 +16,7 @@ antigen bundle zsh-users/zsh-autosuggestions # 補完(候補を薄く表示す�
 antigen bundle b4b4r07/enhancd enhancd.plugin.zsh
 
 # Load the theme.
-antigen theme robbyrussell
+antigen theme romkatv/powerlevel10k
 
 # Tell antigen that you're done.
 antigen apply

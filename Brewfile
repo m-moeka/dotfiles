@@ -3,7 +3,6 @@ brew 'git'
 brew 'jq'
 brew 'mas'
 brew 'openssl'
-brew 'peco'
 brew 'shellcheck'
 brew 'tig'
 brew 'tree'
@@ -36,3 +35,4 @@ cask 'visual-studio-code'
 cask 'xmind'
 
 mas 'GoodNotes 5', id: 1444383602
+mas 'RunCat', id: 1429033973

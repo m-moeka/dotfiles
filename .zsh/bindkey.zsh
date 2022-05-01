@@ -1,2 +1,2 @@
-bindkey '^r' peco-select-history
-bindkey '^o' peco-git-checkout
+bindkey '^r' fzy-select-history
+bindkey '^o' fzy-git-checkout

@@ -1,5 +1,5 @@
-# peco
-peco-select-history() {
+# fzy
+fzy-select-history() {
     local tac
     if which tac > /dev/null; then
         tac="tac"
@@ -12,9 +12,9 @@ peco-select-history() {
     CURSOR=$#BUFFER
     zle clear-screen
 }
-zle -N peco-select-history
+zle -N fzy-select-history
 
-peco-git-checkout() {
+fzy-git-checkout() {
   local res=$(git branch -a | sed 's/^\*/ /' | awk '{ print $1 }' | fzy)
   if [ -n "$res" ]; then
     BUFFER+="gco $res"
@@ -22,4 +22,4 @@ peco-git-checkout() {
   fi
   zle clear-screen
 }
-zle -N peco-git-checkout
+zle -N fzy-git-checkout
