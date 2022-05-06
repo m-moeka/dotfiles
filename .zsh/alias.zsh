@@ -8,3 +8,6 @@ alias relogin='exec $SHELL -l'
 
 # brew 
 alias bu='brew update && brew upgrade'
+
+# delete node_modules
+alias rm_node_modules='find . -name "node_modules" -type d -prune | xargs -p rm -rf'
