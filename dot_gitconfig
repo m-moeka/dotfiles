@@ -1,0 +1,15 @@
+[user]
+	name = m-moeka
+	email = moeka.matsumoto@ascendlogi.co.jp
+[pull]
+	rebase = false
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[init]
+	defaultBranch = develop
+[credential]
+	helper =
+	helper = /usr/local/share/gcm-core/git-credential-manager

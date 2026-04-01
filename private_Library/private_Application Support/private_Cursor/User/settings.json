@@ -1,0 +1,247 @@
+{
+  // ==========================================================================
+  // 全般設定 (General Workbench & Window)
+  // ==========================================================================
+  // VSCode全体の見た目や基本的な動作に関する設定
+  "workbench.colorTheme": "Atom One Dark", // UI全体の配色テーマ
+  "workbench.iconTheme": "material-icon-theme", // ファイルアイコンのテーマ
+  "workbench.startupEditor": "none", // 起動時に表示するエディタ（なしに設定）
+  "security.workspace.trust.untrustedFiles": "open", // 信頼されていないワークスペースのファイルの扱い
+  "update.releaseTrack": "prerelease", // VSCodeのアップデートチャンネル（プレリリース版）
+
+  // ==========================================================================
+  // ワークベンチ設定 (Workbench UI Customization)
+  // ==========================================================================
+  // エディタタブ、エクスプローラー、検索などのUI要素に関する設定
+  "workbench.editor.showTabs": "multiple", // 複数のタブを表示
+  "workbench.editor.wrapTabs": true, // タブが多すぎる場合に折り返す
+  "workbench.editor.tabSizing": "shrink", // タブのサイズを自動調整
+  "workbench.editor.enablePreview": false, // プレビューエディタ機能を無効化
+  "workbench.editor.decorations.colors": true, // エディタ内の装飾（例: Gitの変更箇所）に色を付ける
+  "explorer.confirmDragAndDrop": false, // ファイルやフォルダのドラッグ＆ドロップ時に確認しない
+  "explorer.confirmDelete": false, // ファイル削除時に確認しない
+  "search.quickOpen.includeSymbols": true, // Quick Open (Cmd+P) でシンボル検索を有効にする
+  "terminal.integrated.tabs.enabled": true, // 統合ターミナルでタブ表示を有効にする
+
+  // ==========================================================================
+  // エディタ設定 (Editor Core)
+  // ==========================================================================
+  // テキスト編集エリアの基本的な動作や表示に関する設定
+  "editor.suggestSelection": "first", // 候補表示時のデフォルト選択（最初の候補）
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue", // IntelliCodeによる suggestSelection の自動変更記録
+  "editor.suggest.insertMode": "replace", // 候補選択時の挿入モード（置換）
+  "editor.inlineSuggest.enabled": true, // インライン候補表示（例: GitHub Copilot）を有効化
+  "editor.bracketPairColorization.enabled": true, // 対応する括弧を色付けする
+
+  // ==========================================================================
+  // フォーマット設定 (Formatting)
+  // ==========================================================================
+  // コードの自動整形に関する設定
+  "editor.formatOnSave": true, // 保存時に自動フォーマット
+  "editor.formatOnPaste": true, // ペースト時に自動フォーマット
+  "editor.formatOnType": false, // 入力中に自動フォーマット（対応言語のみ）
+
+  // ==========================================================================
+  // コードアクションとインポート (Code Actions & Imports)
+  // ==========================================================================
+  // 保存時の自動修正やインポート整理に関する設定
+  "editor.codeActionsOnSave": [
+    // "source.organizeImports", // インポート文の整理
+    "source.addMissingImports", // 不足しているインポート文の追加
+    "source.removeUnusedImports", // 未使用のインポート文の削除
+    "source.fixAll.stylelint" // Stylelintによる修正をすべて適用
+  ],
+  // JavaScript/TypeScript共通のインポート関連設定
+  "javascript.updateImportsOnFileMove.enabled": "always", // ファイル移動時にインポートパスを自動更新 (JS)
+  "typescript.updateImportsOnFileMove.enabled": "always", // ファイル移動時にインポートパスを自動更新 (TS)
+
+  // ==========================================================================
+  // ファイル設定 (File Handling)
+  // ==========================================================================
+  // ファイルの扱いに関する設定
+  "files.insertFinalNewline": true, // 保存時にファイルの最後に改行を挿入
+  "files.exclude": {
+    // エクスプローラーやQuick Openで表示しないファイル/フォルダ
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true,
+    "**/node_modules": true,
+    "**/.next": true,
+    // "**/dist": true
+  },
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/out/**": true
+  },
+  "search.exclude": {
+    // 検索対象から除外するファイル/フォルダ
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/out": true,
+    ".claude/worktrees/**": true
+  },
+
+  // ==========================================================================
+  // ソース管理設定 (Source Control - Git)
+  // ==========================================================================
+  // Git連携機能に関する設定
+  "git.enabled": true,
+  "git.autorefresh": true,
+  "git.autofetch": true,
+  "git.decorations.enabled": false,
+
+  // ==========================================================================
+  // テーマ・配色カスタマイズ (Theme & Color Customizations)
+  // ==========================================================================
+  // UI要素の個別色設定
+  "workbench.colorCustomizations": {
+    "editorInlayHint.background": "#18181899", // インレイヒントの背景色
+    "editorInlayHint.foreground": "#8e8c8ccc", // インレイヒントの文字色
+    "editorInlayHint.parameterBackground": "#18181899", // パラメータヒントの背景色
+    "editorInlayHint.parameterForeground": "#8e8c8ccc", // パラメータヒントの文字色
+    "editorInlayHint.typeBackground": "#18181899", // 型ヒントの背景色
+    "editorInlayHint.typeForeground": "#8e8c8ccc", // 型ヒントの文字色
+    "tab.activeBackground": "#666666cc" // アクティブなタブの背景色
+  },
+
+  // ==========================================================================
+  // 言語別設定 (Language Specific Settings)
+  // ==========================================================================
+
+  // --- Python ---
+  "python.languageServer": "Pylance", // Pythonの言語サーバー
+  "python.analysis.typeCheckingMode": "strict", // 型チェックの厳格度
+  "python.linting.pylintEnabled": false, // Pylintを無効化
+  "python.linting.flake8Enabled": true, // Flake8を有効化
+  "python.linting.lintOnSave": true, // 保存時にLintを実行
+  "python.linting.flake8Args": [
+    "--max-line-length",
+    "88", // 1行の最大文字数
+    "--ignore=E203,W503,W504" // 無視するFlake8エラーコード
+  ],
+  "python.formatting.provider": "black", // PythonのフォーマッタとしてBlackを使用
+
+  // --- TypeScript ---
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // TSファイルのデフォルトフォーマッタ
+  },
+  "typescript.inlayHints.parameterNames.enabled": "all", // パラメータ名のヒント表示
+  "typescript.inlayHints.functionLikeReturnTypes.enabled": true, // 関数の戻り値型のヒント表示
+  "typescript.inlayHints.variableTypes.enabled": true, // 変数型のヒント表示
+  "typescript.inlayHints.propertyDeclarationTypes.enabled": true, // プロパティ宣言型のヒント表示
+  "typescript.inlayHints.parameterTypes.enabled": true, // パラメータ型のヒント表示
+   "typescript.tsserver.log": "off", // tsserverのログ出力を停止
+  "typescript.disableAutomaticTypeAcquisition": true, // 自動型取得を無効化
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false, // 大規模プロジェクトでの診断負荷を軽減
+
+  // --- TypeScript React (TSX) ---
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // TSXファイルのデフォルトフォーマッタ
+  },
+
+  // --- JavaScript ---
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // JSファイルのデフォルトフォーマッタ
+  },
+
+  // --- JSON ---
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode" // JSONファイルのデフォルトフォーマッタ
+  },
+
+  // --- Go ---
+  "go.useLanguageServer": true, // Go言語サーバーを使用
+
+  // --- Prisma ---
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma" // Prismaスキーマファイルのデフォルトフォーマッタ
+  },
+  "prisma.showPrismaDataPlatformNotification": false, // Prisma Data Platform の通知を非表示
+
+  // ==========================================================================
+  // 拡張機能設定 (Extension Settings)
+  // ==========================================================================
+
+  // --- ESLint ---
+  "eslint.execArgv": [
+    "--max-old-space-size=8192" // ESLintサーバーのメモリ割り当て増加
+  ],
+
+  // --- Jest Runner ---
+  "jest.runMode": "deferred", // Jestテストの自動実行をオフ
+
+  // --- Live Server ---
+  "liveServer.settings.CustomBrowser": "chrome", // Live Serverで開くブラウザ
+  "liveServer.settings.donotShowInfoMsg": true, // Live Server起動時の情報メッセージを非表示
+
+  // --- GitLens ---
+  "gitlens.statusBar.enabled": false, // ステータスバーのGitLens表示を無効化
+  "gitlens.defaultDateLocale": "system", // 日付表示のロケール（システムデフォルト）
+  "gitlens.defaultDateFormat": "YYYY/M/D", // 標準の日付フォーマット
+  "gitlens.defaultDateStyle": "absolute", // 日付の表示形式（絶対）
+  "gitlens.defaultTimeFormat": "H:m", // 時間のフォーマット
+  "gitlens.defaultDateShortFormat": "YYYY/M/D", // 短縮形の日付フォーマット
+  "gitlens.currentLine.format": "${author, }${agoOrDate}${ : message}", // 現在行のGit情報の表示フォーマット
+  "gitlens.codeLens.recentChange.command": "gitlens.showQuickFileHistory", // CodeLensクリック時のコマンド
+  "gitlens.codeLens.scopes": [
+    "document",
+    "containers" // CodeLensを表示するスコープ
+  ],
+
+  // --- Colorize ---
+  "colorize.languages": [
+    "typescript",
+    "tsx" // 色見本を表示する言語
+  ],
+
+  // --- Code Spell Checker ---
+  "cSpell.userWords": [
+    "canonicalize",
+    "dropoff",
+    "ESTRA",
+    "Fullwidth",
+    "hoverable",
+    "Interactor",
+    "interactors",
+    "logi",
+    "logix",
+    "navigations",
+    "radiusless",
+    "Recoru",
+    "stringbool",
+    "tollroad",
+    "Unassignment",
+    "Usecase"
+  ],
+
+  // --- ShellCheck ---
+  "shellcheck.executablePath": "", // ShellCheck実行ファイルのパス（空の場合はPATHから探す）
+  
+
+  // --- GitHub Pull Requests and Issues ---
+  "githubPullRequests.createOnPublishBranch": "never",
+  "shellcheck.ignorePatterns": {
+    "**/.env": true,
+    "**/.env.*": true
+  },
+  "tailwind-fold.autoFold": false,
+  "githubPullRequests.pullBranch": "never", // ブランチ公開時にPR作成を提案しない
+  "diffEditor.ignoreTrimWhitespace": false,
+  "typescript.tsserver.maxTsServerMemory": 8192,
+  "typescriptExplorer.typeTree.view.show.baseClass": false,
+  "typescript.experimental.useTsgo": false,
+  "claudeCode.preferredLocation": "panel",
+  "debug.toolBarLocation": "docked",
+  "diffEditor.maxComputationTime": 0,
+  "claudeCode.selectedModel": "default",
+
+  // ==========================================================================
+  // その他 (Others)
+  // ==========================================================================
+}

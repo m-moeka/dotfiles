@@ -1,0 +1,33 @@
+# CLI tools
+brew 'chezmoi'
+brew 'git'
+brew 'gh'
+brew 'jq'
+brew 'mas'
+brew 'mise'
+brew 'openssl'
+brew 'shellcheck'
+brew 'starship'
+brew 'fzf'
+brew 'tree'
+brew 'zsh'
+brew 'awscli'
+cask '1password-cli'
+
+# Applications
+cask '1password'
+cask 'arc'
+cask 'cmux'
+cask 'cursor'
+cask 'docker'
+cask 'ghostty'
+cask 'git-credential-manager'
+cask 'google-japanese-ime'
+cask 'raycast'
+cask 'rectangle'
+cask 'slack'
+cask 'todoist'
+cask 'zoom'
+
+# Mac App Store
+mas 'RunCat', id: 1429033973
