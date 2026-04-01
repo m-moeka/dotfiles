@@ -28,5 +28,8 @@ cask 'slack'
 cask 'todoist'
 cask 'zoom'
 
+# Fonts
+cask 'font-jetbrains-mono-nerd-font'
+
 # Mac App Store
 mas 'RunCat', id: 1429033973
