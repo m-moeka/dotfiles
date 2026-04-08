@@ -15,7 +15,13 @@
       "Bash(npm *)",
       "Bash(pnpm *)",
       "Bash(npx *)",
-      "Bash(tsc *)"
+      "Bash(tsc *)",
+      "Bash(ghq:*)",
+      "Bash(which:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(sleep:*)",
+      "Bash(cat:*)"
     ],
     "deny": [
       "Read(~/.ssh/**)",
@@ -87,12 +93,6 @@
       "Read(~/.pypirc)",
       "Edit(~/.pypirc)",
       "Write(~/.pypirc)",
-      "Read(~/.gitconfig)",
-      "Edit(~/.gitconfig)",
-      "Write(~/.gitconfig)",
-      "Read(**/.git/config)",
-      "Edit(**/.git/config)",
-      "Write(**/.git/config)",
       "Read(/etc/**)",
       "Edit(/etc/**)",
       "Write(/etc/**)",
