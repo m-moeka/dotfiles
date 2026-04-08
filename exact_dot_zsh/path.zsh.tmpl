@@ -1,0 +1,5 @@
+# mise
+eval "$(mise activate zsh)"
+
+# Anthropic API
+export ANTHROPIC_API_KEY="{{ output "op" "read" "op://Personal/claude-api-key/credential" "--account" "my.1password.com" "--no-newline" | trim }}"

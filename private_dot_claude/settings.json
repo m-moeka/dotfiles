@@ -120,12 +120,14 @@
     ]
   },
   "hooks": {
-    "PermissionRequest": [
+    "PreToolUse": [
       {
+        "matcher": "Bash",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "以下のツール呼び出しについて、何をするコマンド/操作なのかを日本語で1〜2文で簡潔に説明してください。技術用語はそのままでOKです。説明のみ出力し、許可すべきかの判断は不要です。\n\nツール呼び出し: $ARGUMENTS"
+            "type": "command",
+            "command": "bash ~/.claude/hooks/explain-ja.sh",
+            "timeout": 10
           }
         ]
       }
