@@ -1,0 +1,3 @@
+# Claude Code skills (installed via npx skills add -g -y)
+anthropics/skills@find-skills
+vercel-labs/agent-skills@react-best-practices

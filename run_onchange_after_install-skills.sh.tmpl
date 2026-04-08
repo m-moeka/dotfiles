@@ -1,0 +1,15 @@
+#!/bin/bash
+# Skillsfile hash: {{ include "dot_skillsfile" | sha256sum }}
+
+set -eu
+
+if ! command -v npx &>/dev/null; then
+  echo "npx not found, skipping skills install"
+  exit 0
+fi
+
+while IFS= read -r skill; do
+  [[ -z "$skill" || "$skill" =~ ^# ]] && continue
+  echo "Installing skill: $skill"
+  npx skills add "$skill" -g -y
+done < ~/.skillsfile
