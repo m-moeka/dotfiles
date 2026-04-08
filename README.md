@@ -34,6 +34,31 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply m-moeka
     └── decisions/               #   Architecture Decision Records
 ```
 
+## リポジトリ管理の方針
+
+ghq と workspace を併用する。
+
+| 用途 | 場所 | 説明 |
+|------|------|------|
+| **ghq** | `~/ghq/src/github.com/{owner}/{repo}/` | clone してきただけのリポジトリ。閲覧・参照用 |
+| **workspace** | `~/workspaces/{owner}/{repo}/` | Claude ベースでガツガツ作業するリポジトリ |
+| **workspace（複数リポ）** | `~/workspaces/{owner}/{workspace-name}/{repo}/` | 複数リポジトリを跨ぐワークスペース |
+
+workspace は Claude Code をワークスペースディレクトリで起動することで、プロジェクト独自の CLAUDE.md・スキル・docs などを git 管理外で自由に配置できる仕組み。
+
+```
+~/workspaces/
+├── m-moeka/
+│   └── dotfiles/              # 単体リポ = owner/repo
+└── ascend-ltd/
+    └── logix-app/             # 複数リポワークスペース = owner/workspace-name/repo
+        └── ascend-logi/
+```
+
+エイリアス：
+- `ghl` — ghq リポジトリを fzf で選択して移動
+- `wsl` — workspace を fzf で選択して移動
+
 ## 日常の操作
 
 ### 設定を変更する

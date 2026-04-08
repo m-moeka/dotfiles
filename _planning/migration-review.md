@@ -48,7 +48,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 | エイリアス | 現在の内容 | 判定 | 理由 |
 |-----------|-----------|------|------|
-| `ghl` | `ghq list -p \| fzy` でリポジトリ移動 | **変更** | ghq → workspaceベース、fzy → fzf に書き換え |
+| `ghl` | `ghq list -p \| fzy` でリポジトリ移動 | **変更** | fzy → fzf に書き換え（ghq は継続利用） |
+| `wsl` | （新規） | **新規追加** | workspace を fzf で選択して移動 |
 | `gbm` | developからpull して現在ブランチにマージ | **変更** | rebase方式に書き換え: `git fetch origin && git rebase origin/develop` |
 | `glog` | git log のフォーマット付き表示 | **廃止** | 不要 |
 | `relogin` | `exec $SHELL -l` でシェル再起動 | 継続 | 設定変更後に便利。そのまま使える |
@@ -94,7 +95,7 @@ export PATH="$HOME/.local/bin:$PATH"
 | セクション | 内容 | 判定 | 理由 |
 |-----------|------|------|------|
 | `[user]` name/email | m-moeka / ascendlogi | 継続 | そのまま |
-| `[ghq]` root | ~/ghq/src | **廃止** | workspaceベースに移行 |
+| `[ghq]` root | ~/ghq/src | 継続 | ghq は参照用リポジトリの管理として継続利用 |
 | `[pull]` rebase = false | merge方式のpull | 継続 | そのまま |
 | `[filter "lfs"]` | git-lfs設定 | 継続 | 必要 |
 | `[init]` defaultBranch = develop | デフォルトブランチ名 | 継続 | developのまま |
@@ -110,7 +111,7 @@ export PATH="$HOME/.local/bin:$PATH"
 |-----------|------|
 | `brew 'anyenv'` | mise に移行 |
 | `brew 'yarn'` | mise経由で管理（ascend-logiでは `.mise.toml` で yarn 1.22.22 を指定） |
-| `brew 'ghq'` | workspaceベースの管理に移行 |
+| ~~`brew 'ghq'`~~ | ~~workspaceベースの管理に移行~~ → 継続利用（参照用リポジトリ管理） |
 | `brew 'tig'` | 使っていない |
 | `brew 'fzy'` | fzf に移行 |
 | `cask 'iterm2'` | cmux / Ghostty に移行 |
@@ -189,7 +190,7 @@ export PATH="$HOME/.local/bin:$PATH"
 10. `starship.toml` を作成
 
 ### Phase 3: ツールチェーンの移行
-11. `.gitconfig` を整理（ghq/Azure DevOps 削除）
+11. `.gitconfig` を整理（Azure DevOps 削除、ghq は継続）
 12. Brewfile を更新（廃止/追加パッケージ反映）
 13. `brew bundle` で新パッケージをインストール
 14. mise を設定（`~/.config/mise/config.toml`、ascend-logi用 `.mise.toml`）
@@ -211,8 +212,8 @@ export PATH="$HOME/.local/bin:$PATH"
 
 ## 11. 追加の考慮事項
 
-- **workspaceディレクトリ構造**: ghq廃止後、`~/workspaces/{ユーザー名}/{リポジトリ名}` の構造で管理。workspace直下にCLAUDE.mdやスキルを配置し、その下にリポジトリをcloneする運用。
+- **ghq + workspace 共存**: ghq は clone してきただけの参照用リポジトリ管理として継続。`~/workspaces/{オーナー名}/{リポジトリ名}` または `~/workspaces/{オーナー名}/{ワークスペース名}/{リポジトリ名}` の構造で、Claude ベースで積極的に作業するリポジトリを管理。workspace ディレクトリで Claude Code を起動することで、CLAUDE.md・スキル・docs を git 管理外で自由に配置できる。
 - **chezmoiのsourceDir**: `~/workspaces/m-moeka/dotfiles` に設定（`~/.chezmoi.toml` の `sourceDir` で指定）。
-- **既存リポジトリの移動**: `~/ghq/src/` 配下のリポジトリを `~/workspaces/` に移す作業が別途必要。
+- **既存リポジトリ**: `~/ghq/src/` 配下はそのまま維持。workspace が必要なものだけ `~/workspaces/` に `git clone` する。
 - **mise + Volta共存**: miseに一本化し、Voltaはアンインストール。ascend-logiの `package.json` にある `volta` フィールドはチームメンバーのために残す。自分用に `.mise.toml` を作成。
 - **Voltaメンテナンス終了**: Voltaは公式にメンテナンス終了。チーム全体の mise 移行を将来的に提案する価値あり。
