@@ -6,7 +6,9 @@ $directory\
 [](fg:color_yellow bg:color_aqua)\
 $git_branch\
 $git_status\
-[ ](fg:color_aqua)\
+[](fg:color_aqua bg:color_bg1)\
+$time\
+[ ](fg:color_bg1)\
 $line_break$character"""
 
 palette = 'gruvbox_dark'
@@ -46,6 +48,12 @@ stashed = '$$${count}'
 ahead = '⇡${count}'
 behind = '⇣${count}'
 diverged = '⇡${ahead_count}⇣${behind_count}'
+
+[time]
+disabled = false
+time_format = "%R"
+style = "bg:color_bg1"
+format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
 
 [line_break]
 disabled = false
