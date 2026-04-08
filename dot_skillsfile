@@ -1,3 +1,4 @@
 # Claude Code skills (installed via npx skills add -g -y)
 vercel-labs/agent-skills@vercel-react-best-practices
 iwasa-kosui/functional-ts-principles
+kamranahmedse/diffity

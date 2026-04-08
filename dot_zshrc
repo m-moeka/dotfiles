@@ -18,6 +18,9 @@ zinit wait lucid for \
 # oh-my-zsh git plugin
 zinit snippet OMZP::git
 
+# eza (ls alternative)
+zinit wait lucid for z-shell/zsh-eza
+
 # Starship prompt
 eval "$(starship init zsh)"
 

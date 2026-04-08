@@ -1,5 +1,6 @@
 # CLI tools
 brew 'chezmoi'
+brew 'eza'
 brew 'git'
 brew 'gh'
 brew 'jq'
