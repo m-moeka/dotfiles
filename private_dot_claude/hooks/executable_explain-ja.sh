@@ -54,7 +54,6 @@ cat <<HOOKJSON
 {
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
-    "permissionDecision": "ask",
     "permissionDecisionReason": $escaped
   }
 }

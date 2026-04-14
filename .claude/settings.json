@@ -3,8 +3,8 @@
     "allow": [
       "mcp__claude_ai_Linear__get_issue",
       "Bash(diffity:*)",
-      "Bash(chezmoi:*)",
-      "Bash(brew:*)"
+      "Bash(chezmoi *)",
+      "Bash(brew *)"
     ]
   }
 }

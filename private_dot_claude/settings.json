@@ -16,12 +16,12 @@
       "Bash(pnpm *)",
       "Bash(npx *)",
       "Bash(tsc *)",
-      "Bash(ghq:*)",
-      "Bash(which:*)",
-      "Bash(ls:*)",
-      "Bash(mkdir:*)",
-      "Bash(sleep:*)",
-      "Bash(cat:*)"
+      "Bash(ghq *)",
+      "Bash(which *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(sleep *)",
+      "Bash(cat *)"
     ],
     "deny": [
       "Read(~/.ssh/**)",
