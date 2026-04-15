@@ -1,0 +1,25 @@
+#!/bin/bash
+# Pluginfile hash: {{ include "dot_pluginfile" | sha256sum }}
+
+set -eu
+
+if ! command -v claude &>/dev/null; then
+  echo "claude not found, skipping plugin install"
+  exit 0
+fi
+
+section=""
+while IFS= read -r line; do
+  [[ -z "$line" || "$line" =~ ^# ]] && continue
+
+  # Switch section based on content pattern
+  if [[ "$line" == */* && "$line" != *@* ]]; then
+    # marketplace: owner/repo format
+    echo "Adding marketplace: $line"
+    claude plugin marketplace add "$line" 2>/dev/null || true
+  else
+    # plugin: name@marketplace format
+    echo "Installing plugin: $line"
+    claude plugin install "$line" 2>/dev/null || true
+  fi
+done < ~/.pluginfile

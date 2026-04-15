@@ -1,0 +1,6 @@
+# Claude Code plugin marketplaces (github-owner/repo)
+openai/codex-plugin-cc
+
+# Claude Code plugins (plugin@marketplace)
+codex@openai-codex
+skill-creator@claude-plugins-official
