@@ -16,6 +16,7 @@ cc-advisor サブエージェントがユーザーのプロンプトを分析す
 - @sources/memory.md — CLAUDE.md の書き方、配置場所、auto memory、トラブルシューティング
 - @sources/features-overview.md — CLAUDE.md / スキル / サブエージェント / フック / MCP の使い分け
 - @sources/common-workflows.md — コードベース探索、バグ修正、リファクタ、テスト、PR作成等の実践パターン
+- @sources/session-management.md — セッション管理、rewind/compact/clear/subagentの使い分け、コンテキストロット
 
 ## 更新方法
 
@@ -117,3 +118,18 @@ CLAUDE.md に関する注意:
 - 特定のファイルパスにだけ適用するルールは .claude/rules/ に paths 付きで配置
 
 根拠: features-overview "Build your setup over time" の表にトリガーと追加すべき機能の対応が明記されている。memory.md "When to add to CLAUDE.md" に追記すべきタイミングの判断基準がある。features-overview の比較表（CLAUDE.md vs Skill, CLAUDE.md vs Rules vs Skills, Skill vs Subagent, MCP vs Skill）に使い分けの根拠がある。
+
+### 6. セッションのライフサイクルを適切に管理しているか
+
+Claude のターンが終わるたびに「次にどうするか」の判断ポイントがある。continue 以外にも rewind / clear / compact / subagent の選択肢があり、状況に応じて使い分けるとコンテキストの質を保てる。
+
+確認すること:
+- 失敗したアプローチを修正メッセージで上書きしようとしていないか → **rewind**（`esc esc`）でファイル読み込み直後まで戻り、学んだことを含めて再プロンプトする方が効果的。失敗した試行のコンテキストがノイズとして残らない
+- 長いセッションでコンテキストが膨らんでいないか → ~300-400k トークン付近からコンテキストロット（性能劣化）が始まる。autocompact に任せず、**proactive に `/compact` を実行**し、次にやることの説明を添える（例: `/compact focus on the auth refactor, drop the test debugging`）
+- compact と clear の使い分け:
+  - `/compact` — 自分で何も書かなくてよい。Claude が網羅的に要約する。ただしロッシー（何を残すかは Claude 判断）
+  - `/clear` — 手間がかかるが、何が関連するかを自分で決められる。精度が必要な場面向き
+- 中間出力が大量に出るが結論だけ必要な作業をメインセッションでやろうとしていないか → **サブエージェント**に委任。判断基準:「このツール出力にまた必要になるか、それとも結論だけでよいか？」
+- 関連タスクを続けるか新セッションにするかの判断 → ファイル再読み込みのコスト vs コンテキスト劣化のコストを天秤にかける。知能が強く求められないタスク（ドキュメント作成等）なら既存セッション継続もあり
+
+根拠: session-management.md に基づく。コンテキストロットは ~300-400k トークン付近から観察される（タスク依存）。bad compact の主因は「コンテキストロットで知能が最も低い時点で要約が走る」こと。rewind は "the single habit that signals good context management" と評されている。サブエージェントの判断基準は「中間出力にまた必要になるか、結論だけでよいか」。
