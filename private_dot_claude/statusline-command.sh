@@ -8,10 +8,17 @@ in_tokens=$(echo "$input" | jq -r '.context_window.current_usage.input_tokens //
 out_tokens=$(echo "$input" | jq -r '.context_window.current_usage.output_tokens // empty')
 five_h=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 
-effort=$(jq -r '.effortLevel // empty' ~/.claude/settings.local.json 2>/dev/null)
-if [ -z "$effort" ]; then
-  effort=$(jq -r '.effortLevel // empty' ~/.claude/settings.json 2>/dev/null)
-fi
+effort=""
+for f in \
+  "$cwd/.claude/settings.local.json" \
+  "$cwd/.claude/settings.json" \
+  "$HOME/.claude/settings.local.json" \
+  "$HOME/.claude/settings.json"; do
+  if [ -z "$effort" ] && [ -f "$f" ]; then
+    val=$(jq -r '.effortLevel // empty' "$f" 2>/dev/null)
+    [ -n "$val" ] && effort="$val"
+  fi
+done
 
 sep='\033[90m │ \033[0m'
 
