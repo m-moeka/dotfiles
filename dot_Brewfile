@@ -7,13 +7,13 @@ brew 'gh'
 brew 'jq'
 brew 'mas'
 brew 'mise'
-brew 'openssl'
 brew 'shellcheck'
 brew 'starship'
 brew 'fzf'
-brew 'tree'
-brew 'zsh'
 brew 'awscli'
+brew 'kubernetes-cli'
+brew 'tmux'
+brew 'uv'
 cask '1password-cli'
 
 # Applications
@@ -21,16 +21,21 @@ cask '1password'
 cask 'arc'
 cask 'cmux'
 cask 'cursor'
-cask 'docker'
+cask 'docker-desktop'
 cask 'fork'
 cask 'git-credential-manager'
 cask 'raycast'
 cask 'rectangle'
 cask 'slack'
+cask 'claude-code@latest'
+cask 'codex'
+cask 'google-chrome'
+cask 'obsidian'
 cask 'zoom'
 
 # Fonts
 cask 'font-jetbrains-mono-nerd-font'
 
 # Mac App Store
+mas 'Kindle', id: 302584613
 mas 'RunCat', id: 1429033973
