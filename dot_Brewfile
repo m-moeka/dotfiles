@@ -22,12 +22,11 @@ cask 'arc'
 cask 'cmux'
 cask 'cursor'
 cask 'docker'
-cask 'ghostty'
+cask 'fork'
 cask 'git-credential-manager'
 cask 'raycast'
 cask 'rectangle'
 cask 'slack'
-cask 'todoist'
 cask 'zoom'
 
 # Fonts
