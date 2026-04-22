@@ -9,6 +9,14 @@ sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply \
   --source ~/ghq/src/github.com/m-moeka/dotfiles m-moeka
 ```
 
+初回は 1Password CLI (`op`) がまだ入っていないため、APIキーは空で展開されます。
+`brew bundle` で `op` がインストールされた後、サインインして再適用してください：
+
+```bash
+op signin
+chezmoi apply
+```
+
 ## 構造
 
 ```

@@ -2,7 +2,7 @@
 eval "$(mise activate zsh)"
 
 # Anthropic API
-export ANTHROPIC_API_KEY="{{ output "op" "read" "op://Personal/claude-api-key/credential" "--account" "my.1password.com" "--no-newline" | trim }}"
+export ANTHROPIC_API_KEY="{{ if lookPath "op" }}{{ output "op" "read" "op://Personal/claude-api-key/credential" "--account" "my.1password.com" "--no-newline" | trim }}{{ end }}"
 
 # Linear API
-export LINEAR_API_KEY="{{ output "op" "read" "op://Personal/LINEAR_API_KEY/credential" "--account" "my.1password.com" "--no-newline" | trim }}"
+export LINEAR_API_KEY="{{ if lookPath "op" }}{{ output "op" "read" "op://Personal/LINEAR_API_KEY/credential" "--account" "my.1password.com" "--no-newline" | trim }}{{ end }}"
