@@ -5,7 +5,8 @@ chezmoi で管理する dotfiles。
 ## セットアップ
 
 ```bash
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply m-moeka
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply \
+  --source ~/ghq/src/github.com/m-moeka/dotfiles m-moeka
 ```
 
 ## 構造
@@ -96,7 +97,7 @@ chezmoi apply
 ### 別のマシンで同期する
 
 ```bash
-chezmoi init --apply m-moeka
+chezmoi init --apply --source ~/ghq/src/github.com/m-moeka/dotfiles m-moeka
 ```
 
 既にセットアップ済みのマシンで最新を反映：
