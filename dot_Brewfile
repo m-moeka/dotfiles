@@ -1,3 +1,6 @@
+# Taps
+tap 'xykong/tap'
+
 # CLI tools
 brew 'chezmoi'
 brew 'eza'
@@ -18,6 +21,7 @@ cask '1password-cli'
 
 # Applications
 cask '1password'
+cask 'antinote'
 cask 'arc'
 cask 'chatgpt'
 cask 'claude'
@@ -26,7 +30,9 @@ cask 'cmux'
 cask 'cursor'
 cask 'dbeaver-community'
 cask 'docker-desktop'
+cask 'dockdoor'
 cask 'figma'
+cask 'flux-markdown'
 cask 'fork'
 cask 'git-credential-manager'
 cask 'nani'
