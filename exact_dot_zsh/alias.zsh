@@ -9,3 +9,9 @@ alias gbm='git fetch origin && git rebase origin/develop'
 
 # shell
 alias relogin='exec $SHELL -l'
+
+# claude
+_ask() {
+  claude -p --model haiku "$*"
+}
+alias ask='noglob _ask'
