@@ -1,2 +1,6 @@
 font-family = JetBrainsMono Nerd Font
 font-size = 14
+
+# cmux 0.64.x のダークモード背景白化バグ (manaflow-ai/cmux#4537) の回避策。
+# 条件付き構文 (light:...,dark:...) は使わず、単一のダークテーマを明示固定する。
+theme = TokyoNight
