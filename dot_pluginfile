@@ -1,6 +1,9 @@
 # Claude Code plugin marketplaces (github-owner/repo)
 openai/codex-plugin-cc
+multica-ai/andrej-karpathy-skills
 
 # Claude Code plugins (plugin@marketplace)
 codex@openai-codex
 skill-creator@claude-plugins-official
+superpowers@claude-plugins-official
+andrej-karpathy-skills@karpathy-skills
