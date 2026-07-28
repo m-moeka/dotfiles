@@ -9,7 +9,7 @@ if ! command -v claude &>/dev/null; then
 fi
 
 section=""
-while IFS= read -r line; do
+while IFS= read -r line <&3; do
   [[ -z "$line" || "$line" =~ ^# ]] && continue
 
   # Switch section based on content pattern
@@ -22,4 +22,4 @@ while IFS= read -r line; do
     echo "Installing plugin: $line"
     claude plugin install "$line" 2>/dev/null || true
   fi
-done < ~/.pluginfile
+done 3< ~/.pluginfile

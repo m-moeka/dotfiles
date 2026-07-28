@@ -138,7 +138,8 @@
     "skill-creator@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
     "andrej-karpathy-skills@karpathy-skills": true,
-    "crit@crit": true
+    "crit@crit": true,
+    "codex@openai-codex": false
   },
   "extraKnownMarketplaces": {
     "karpathy-skills": {
@@ -151,6 +152,12 @@
       "source": {
         "source": "github",
         "repo": "tomasz-tomczyk/crit"
+      }
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
       }
     }
   },

@@ -8,8 +8,8 @@ if ! command -v npx &>/dev/null; then
   exit 0
 fi
 
-while IFS= read -r skill; do
+while IFS= read -r skill <&3; do
   [[ -z "$skill" || "$skill" =~ ^# ]] && continue
   echo "Installing skill: $skill"
   npx skills add "$skill" -g -y
-done < ~/.skillsfile
+done 3< ~/.skillsfile
