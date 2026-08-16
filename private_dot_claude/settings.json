@@ -137,17 +137,10 @@
   "enabledPlugins": {
     "skill-creator@claude-plugins-official": true,
     "superpowers@claude-plugins-official": true,
-    "andrej-karpathy-skills@karpathy-skills": true,
     "crit@crit": true,
     "codex@openai-codex": false
   },
   "extraKnownMarketplaces": {
-    "karpathy-skills": {
-      "source": {
-        "source": "github",
-        "repo": "multica-ai/andrej-karpathy-skills"
-      }
-    },
     "crit": {
       "source": {
         "source": "github",

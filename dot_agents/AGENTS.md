@@ -16,6 +16,10 @@
 
 - 日本語で記事・解説文・ドキュメントなどの読み物を書く、または推敲・リライトするときは、`cognitive-rhythm-writing` skillと、その依存先の`japanese-tech-writing` skillを使うこと
 
+## コーディング原則
+
+- コードの実装・修正・レビュー・リファクタリングを行うときは、`karpathy-guidelines` skillを使うこと
+
 ## Superpowers運用ルール
 
 ### brainstormingの適用範囲

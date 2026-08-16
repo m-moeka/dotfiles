@@ -14,6 +14,3 @@
 - このルールは Auto Mode の「即座に実行」「中断を最小化」より優先する
 - スキップされた場合、ユーザーが「cc-advisorで分析して」と指示したら即座にcc-advisorサブエージェントを実行すること
 - `cc-advisor`と`brainstorming`の両方が該当する場合は、`cc-advisor`を先に実行する
-
-## コーディング原則
-- コードの実装・修正・レビュー・リファクタリングを行うときは、必ず `andrej-karpathy-skills:karpathy-guidelines` スキルを使うこと
