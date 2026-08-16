@@ -1,6 +1,7 @@
 _planning/
 README.md
 CLAUDE.md
+AGENTS.md
 
 # 実在の議事録・参加者の実名・社内用語を含むため、公開リポジトリでは管理しない
 .claude/skills/meeting-transcript-cleanup*

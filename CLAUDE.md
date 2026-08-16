@@ -1,3 +1,5 @@
+@AGENTS.md
+
 ## 編集制限
 
 ### `dot_config/starship.toml`
