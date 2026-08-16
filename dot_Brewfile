@@ -3,6 +3,7 @@ tap 'xykong/tap'
 
 # CLI tools
 brew 'chezmoi'
+brew 'crit'
 brew 'eza'
 brew 'ghq'
 brew 'git'

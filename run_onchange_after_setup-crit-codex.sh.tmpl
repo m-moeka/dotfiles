@@ -1,0 +1,12 @@
+#!/bin/bash
+# Crit installed version: {{ output "sh" "-c" `if command -v crit >/dev/null 2>&1; then crit --version | head -n 1; fi` | trim }}
+
+set -eu
+
+if ! command -v crit >/dev/null 2>&1; then
+  echo "crit not found, skipping Codex integration install"
+  exit 0
+fi
+
+cd "$HOME"
+crit install codex-plugin --force

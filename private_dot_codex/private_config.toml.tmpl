@@ -28,6 +28,14 @@ trust_level = "trusted"
 [projects."/Users/moeka/ghq/src/github.com/ascend-ltd/ascend-logi"]
 trust_level = "trusted"
 
+[features]
+plugins = true
+hooks = true
+plugin_hooks = true
+
+[plugins."crit@local"]
+enabled = true
+
 [plugins."figma@openai-curated"]
 enabled = true
 
