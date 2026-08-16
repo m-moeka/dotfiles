@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub CLI"
+  short_description: "gh CLIでPR・レビュー・Actionsを安全に操作"
+  default_prompt: "Use $github-cli to inspect the requested pull request and its CI status."

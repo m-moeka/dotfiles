@@ -1,0 +1,22 @@
+#!/bin/bash
+# Codex pluginfile hash: {{ include "dot_codex-pluginfile" | sha256sum }}
+
+set -euo pipefail
+
+if ! command -v codex >/dev/null 2>&1; then
+  echo "codex not found, skipping Codex plugin install"
+  exit 0
+fi
+
+while read -r marketplace source ref plugin; do
+  [[ -z "${marketplace:-}" || "$marketplace" == \#* ]] && continue
+
+  selector="${plugin}@${marketplace}"
+  echo "Installing ${selector} from ${source}@${ref}"
+
+  # Recreate the pinned marketplace snapshot when the pluginfile changes.
+  codex plugin remove "$selector" >/dev/null 2>&1 || true
+  codex plugin marketplace remove "$marketplace" >/dev/null 2>&1 || true
+  codex plugin marketplace add "$source" --ref "$ref"
+  codex plugin add "$selector"
+done < ~/.codex-pluginfile

@@ -1,0 +1,81 @@
+name: Check Superpowers updates
+
+on:
+  schedule:
+    # Monday 09:00 JST
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Open an issue for a new stable release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          pluginfile="$({
+            gh api "repos/${GITHUB_REPOSITORY}/contents/dot_codex-pluginfile" --jq .content
+          } | base64 --decode)"
+          pinned="$(printf '%s\n' "$pluginfile" | awk '$1 !~ /^#/ && $2 == "obra/superpowers" { print $3; exit }')"
+          latest="$(
+            gh api --paginate "repos/obra/superpowers/tags?per_page=100" --jq '.[].name' |
+              awk '/^v[0-9]+\.[0-9]+\.[0-9]+$/' |
+              sort -V |
+              tail -n 1
+          )"
+
+          if [[ -z "$pinned" || -z "$latest" ]]; then
+            echo "Could not resolve pinned or latest Superpowers version" >&2
+            exit 1
+          fi
+
+          if [[ "$pinned" == "$latest" ]]; then
+            echo "Superpowers is current at ${pinned}"
+            exit 0
+          fi
+
+          newest="$(printf '%s\n%s\n' "$pinned" "$latest" | sort -V | tail -n 1)"
+          if [[ "$newest" != "$latest" ]]; then
+            echo "Pinned version ${pinned} is newer than latest stable tag ${latest}"
+            exit 0
+          fi
+
+          title="Superpowers ${latest} is available"
+          if gh issue list \
+            --repo "$GITHUB_REPOSITORY" \
+            --state all \
+            --search "${title} in:title" \
+            --limit 100 \
+            --json title \
+            --jq '.[].title' | grep -Fqx "$title"; then
+            echo "Issue already exists: ${title}"
+            exit 0
+          fi
+
+          gh issue create \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$title" \
+            --body "$(cat <<EOF
+          A newer stable Superpowers release is available.
+
+          - Pinned: \`${pinned}\`
+          - Latest: \`${latest}\`
+          - [Compare changes](https://github.com/obra/superpowers/compare/${pinned}...${latest})
+          - [Release notes](https://github.com/obra/superpowers/blob/main/RELEASE-NOTES.md)
+
+          Before updating:
+
+          - Review Codex-specific changes, especially multi-agent lifecycle and hooks.
+          - Update the pinned ref in \`dot_codex-pluginfile\`.
+          - Run \`chezmoi apply\` to reinstall the pinned marketplace snapshot.
+          - Smoke-test brainstorming, TDD, and subagent-driven development.
+          EOF
+          )"

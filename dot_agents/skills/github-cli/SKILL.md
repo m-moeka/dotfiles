@@ -1,24 +1,28 @@
 ---
-description: GitHub操作のghコマンドリファレンス。PR作成・確認・マージ、CI/Actions確認に使う。
-allowed-tools: Bash
+name: github-cli
+description: GitHubをgh CLIで操作するための規約とコマンド集。Pull Requestの一覧・確認・作成・マージ・レビュー、GitHub Actionsの状態確認・失敗ログ調査・再実行を依頼されたときに使う。GitHub MCPは使わない。
 ---
 
-# GitHub CLI (gh) リファレンス
+# GitHub CLI
 
 ## 基本ルール
-- `--repo <owner>/<repo>` は必ず明示する（個人・Org混在のため省略禁止）
-- PR mergeは必ず `--squash --delete-branch` をつける
-- 出力は `--json` + 必要フィールドのみ指定（トークン節約）
 
-## PR
+- GitHub操作には`gh` CLIを使い、GitHub MCP serverは使わない。
+- 対象リポジトリをユーザー指定または現在のGit remoteから特定し、操作コマンドには`--repo <owner>/<repo>`を必ず明示する。
+- 読み取り結果は`--json`で必要なフィールドだけを取得する。
+- PRをマージするときは`--squash --delete-branch`を必ず指定する。
+
+## Pull Request
 
 ### 読み取り
+
 ```bash
 gh pr list --repo <owner>/<repo> --state open --json number,title,headRefName,isDraft,reviewDecision
 gh pr view <number> --repo <owner>/<repo> --json number,title,body,state,reviews,statusCheckRollup
 ```
 
 ### 作成
+
 ```bash
 gh pr create \
   --repo <owner>/<repo> \
@@ -26,42 +30,42 @@ gh pr create \
   --head <branch> \
   --title "..." \
   --body "..."
-# draftの場合は --draft を追加
 ```
 
+Draft PRには`--draft`を追加する。
+
 ### マージ
+
 ```bash
-# squash merge統一・ブランチ削除セット
 gh pr merge <number> --repo <owner>/<repo> --squash --delete-branch
 ```
 
 ### レビュー
+
 ```bash
 gh pr review <number> --repo <owner>/<repo> --approve
 gh pr review <number> --repo <owner>/<repo> --request-changes --body "..."
 ```
 
-## CI / Actions
+## GitHub Actions
 
-### 確認
+### 状態確認と失敗調査
+
 ```bash
-# 直近の実行一覧
 gh run list --repo <owner>/<repo> --limit 10 --json databaseId,name,status,conclusion,headBranch
-
-# 特定PRのCI確認
 gh pr view <number> --repo <owner>/<repo> --json statusCheckRollup
-
-# 失敗ログのみ表示（原因特定用）
 gh run view <run-id> --repo <owner>/<repo> --log-failed
 ```
 
-### 再実行
+### 失敗したjobの再実行
+
 ```bash
 gh run rerun <run-id> --repo <owner>/<repo> --failed-only
 ```
 
-## よく使う --json フィールド一覧
-| 対象 | 推奨フィールド |
+## 推奨JSONフィールド
+
+| 対象 | フィールド |
 |---|---|
 | PR一覧 | `number,title,headRefName,isDraft,reviewDecision` |
 | PR詳細 | `number,title,body,state,reviews,statusCheckRollup` |

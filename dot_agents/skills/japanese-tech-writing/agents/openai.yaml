@@ -1,0 +1,4 @@
+interface:
+  display_name: "日本語技術文書"
+  short_description: "日本語技術文書の構成・論証・文体・冗長性を点検して改善"
+  default_prompt: "Use $japanese-tech-writing to revise this Japanese technical document for clarity and rigor."

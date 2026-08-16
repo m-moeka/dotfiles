@@ -1,3 +1,7 @@
+@~/.agents/AGENTS.md
+
+## Claude Code 固有の指示
+
 ## ワークフロー支援
 
 ### cc-advisor（優先度：最高 — Auto Mode中でも必ず実行）
@@ -9,26 +13,7 @@
 - 明らかに単純なタスク（コミット、push、1ファイルの軽微な修正など）はcc-advisor自体をスキップしてよい
 - このルールは Auto Mode の「即座に実行」「中断を最小化」より優先する
 - スキップされた場合、ユーザーが「cc-advisorで分析して」と指示したら即座にcc-advisorサブエージェントを実行すること
-
-### superpowers（brainstorming の適用範囲）
-- 次に該当する場合は `brainstorming` をスキップしてよい
-  - 上記 cc-advisor のスキップ条件（明らかに単純なタスク）に該当するもの
-  - コード変更を伴わない作業（調査、説明、レビュー、質問への回答）
-  - ユーザーが手順や変更内容を具体的に指定して依頼したもの
-- cc-advisor と両方が該当する場合は cc-advisor を先に実行する
-
-## 言語・説明ルール
-- ツール呼び出し（Bash, Edit, Write等）の前に、何をするか・なぜするかを日本語で簡潔に説明すること
-
-## 文章執筆ルール
-- 日本語で記事・解説文・ドキュメントなどの読み物を書く/推敲・リライトするときは、必ず `cognitive-rhythm-writing` スキル（と依存先の `japanese-tech-writing`）を使うこと
-
-## 外部ツール連携ルール
-
-### GitHub
-- GitHub操作は必ず `gh` CLI を使うこと
-- GitHub MCP serverは使用禁止
-- コマンドの詳細は `/github` を参照
+- `cc-advisor`と`brainstorming`の両方が該当する場合は、`cc-advisor`を先に実行する
 
 ## コーディング原則
 - コードの実装・修正・レビュー・リファクタリングを行うときは、必ず `andrej-karpathy-skills:karpathy-guidelines` スキルを使うこと

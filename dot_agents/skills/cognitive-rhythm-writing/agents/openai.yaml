@@ -1,0 +1,4 @@
+interface:
+  display_name: "認知リズム執筆"
+  short_description: "日本語の説明文に認知的な緩急と読み進める推進力を設計"
+  default_prompt: "Use $cognitive-rhythm-writing to revise this Japanese article for stronger pacing and reader momentum."

@@ -8,24 +8,33 @@ Claude Code、Cursor等の複数AIツールに「指示書」を書く必要が�
 
 ## 決定
 
-**AGENTS.md を単一ソース・オブ・トゥルースとして採用する**
+**`~/.agents`を共通の指示とskillsの単一ソースとして採用する**
 
 ### 構成
-- プロジェクトルートに `AGENTS.md` を1つ置く（Linux Foundation傘下の標準規格）
-- Claude Code, Cursor, Copilot, Windsurf, Zed等の主要ツールが全て読める
-- ツール固有の機能が必要な場合のみ `CLAUDE.md` や `.cursorrules` を追加
+
+- グローバル指示は`~/.agents/AGENTS.md`で管理する
+- Codexは`~/.codex/AGENTS.md`から共通ファイルをsymlinkで参照する
+- Claude Codeは`~/.claude/CLAUDE.md`から共通ファイルをimportする
+- プロジェクト固有の指示には、各リポジトリの`AGENTS.md`を使う
+- ツール固有の指示が必要な場合のみ`CLAUDE.md`などを追加する
 
 ### グローバルのskills/hooks/commands
-- `~/.claude/skills/` にスキル定義を配置（chezmoiで管理: ADR-007）
-- `~/.claude/commands/` にスラッシュコマンドを配置
-- Hooksはプロジェクトの `.claude/settings.json` で定義
+
+- 共通skillsは`~/.agents/skills/`で管理する
+- Claude Codeは`~/.claude/skills/`のsymlinkから共通skillsを参照する
+- Codexは`~/.agents/skills/`をネイティブに検出する
+- ツール固有のskills、hooks、commandsは各ツールのディレクトリに残す
 
 ## 決定理由
 
-1. AGENTS.mdは60,000+リポジトリで採用されている実績ある標準規格
-2. 1ファイルで複数ツール対応。重複管理の手間がなくなる
-3. ツール固有機能は追加ファイルで対応可能なので柔軟性も確保
+1. 共通指示とskillsの重複をなくし、Claude CodeとCodexで同じ内容を利用できる
+2. ツール固有機能は各ツールのディレクトリに残せる
+3. `~/.agents`はCodexの標準探索先として利用できる
 
 ## 日付
 
 2026-03-31
+
+## 改訂
+
+2026-08-16：Claude CodeとCodexの共通化に合わせ、グローバル構成を`~/.agents`中心へ変更した。

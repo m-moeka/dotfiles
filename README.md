@@ -33,7 +33,10 @@ chezmoi apply
 │   ├── starship.toml            # Starship プロンプト設定
 │   ├── ghostty/config           # Ghostty / cmux ターミナル設定
 │   └── mise/config.toml         # mise グローバル設定
-├── private_dot_claude/          # Claude Code 設定（CLAUDE.md, skills, commands）
+├── dot_agents/                  # Claude/Codex共通の指示とskills
+├── private_dot_claude/          # Claude Code固有の設定と共通skillsへのsymlink
+├── private_dot_codex/           # Codex設定と共通AGENTS.mdへのsymlink
+├── dot_codex-pluginfile         # Codex pluginの固定バージョン
 ├── private_dot_cursor/          # Cursor 設定（mcp.json）
 ├── private_Library/...          # Cursor エディタ設定（settings.json, keybindings.json）
 ├── run_onchange_after_install-packages.sh.tmpl  # Brewfile 変更時に brew bundle 実行
@@ -101,6 +104,19 @@ chezmoi add ~/.config/foo/config
 vim dot_Brewfile
 chezmoi apply
 ```
+
+### CodexのSuperpowersを更新する
+
+Codexでは`obra/superpowers`のstable release tagを`dot_codex-pluginfile`に固定する。
+GitHub Actionsが毎週月曜日にupstreamの最新タグを確認し、新版があればIssueを作成する。
+
+Issueでrelease notesと差分を確認した後、`dot_codex-pluginfile`のタグを更新して適用する。
+
+```bash
+chezmoi apply
+```
+
+`run_onchange_after_install-codex-plugins.sh.tmpl`が固定したmarketplace snapshotを再登録し、プラグインを再インストールする。
 
 ### 別のマシンで同期する
 

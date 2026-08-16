@@ -1,0 +1,51 @@
+{{- $dynamic := output "sh" "-c" `config="$HOME/.codex/config.toml"
+if [ -f "$config" ]; then
+  awk '
+    /^\[(hooks\.state\.|marketplaces\.)/ { keep = 1; print; next }
+    /^\[/ { keep = 0 }
+    keep { print }
+  ' "$config"
+fi` -}}
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+[projects."/Users/moeka/workspaces/ascend-ltd/logix-app"]
+trust_level = "trusted"
+
+[projects."/Users/moeka/ghq/src/github.com/m-moeka/dotfiles"]
+trust_level = "trusted"
+
+[projects."/Users/moeka"]
+trust_level = "trusted"
+
+[projects."/Users/moeka/workspaces/ascend-ltd/logix-lib-update"]
+trust_level = "trusted"
+
+[projects."/Users/moeka/Downloads"]
+trust_level = "trusted"
+
+[projects."/Users/moeka/ghq/src/github.com/ascend-ltd/ascend-logi"]
+trust_level = "trusted"
+
+[plugins."figma@openai-curated"]
+enabled = true
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[plugins."superpowers@superpowers-dev"]
+enabled = true
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir"]
+status_line_use_colors = true
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[notice]
+fast_default_opt_out = true
+{{ if $dynamic }}
+{{ $dynamic | trim }}
+{{- end }}
