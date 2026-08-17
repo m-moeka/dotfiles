@@ -1,3 +1,4 @@
-# Claude Code skills (installed via npx skills add -g -y)
+# Shared agent skills (installed via npx skills add -g -y)
 mattpocock/skills@codebase-design
 mattpocock/skills@domain-modeling
+herdrdev/herdr@herdr

@@ -1,5 +1,6 @@
 # Taps
-tap 'xykong/tap'
+tap 'manaflow-ai/cmux', trusted: { cask: 'cmux' }
+tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 
 # CLI tools
 brew 'chezmoi'
@@ -8,6 +9,7 @@ brew 'eza'
 brew 'ghq'
 brew 'git'
 brew 'gh'
+brew 'herdr'
 brew 'jq'
 brew 'mas'
 brew 'mise'
@@ -35,6 +37,7 @@ cask 'figma'
 cask 'flux-markdown'
 cask 'fork'
 cask 'git-credential-manager'
+cask 'ghostty'
 cask 'nani'
 cask 'raycast'
 cask 'rectangle'
@@ -50,4 +53,4 @@ cask 'font-jetbrains-mono-nerd-font'
 
 # Mac App Store
 mas 'Kindle', id: 302584613
-mas 'RunCat', id: 1429033973
+mas 'RunCat Neo', id: 6757801838
