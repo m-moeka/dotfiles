@@ -1,3 +1,22 @@
+#!/bin/sh
+# chezmoi modify_ スクリプト → ~/.claude/settings.json
+#
+# このファイルは Claude Code 自身と外部ツールのインストーラが実行時に書き込むため、丸ごと管理すると
+# 必ず衝突する。repo が真とするキーだけを上書きし、それ以外は実ファイルの値を素通しする。
+#
+# 実ファイルの値を素通しするキー:
+#   autoMode                ... auto mode が学習した環境情報。社内情報を含むため
+#                               この公開リポジトリには絶対に入れない
+#   hooks                   ... 外部ツールのインストーラが管理するため触らない
+#   permissions.defaultMode ... auto mode のオプトイン結果
+#   （将来 Claude Code が追記する未知のキーもすべて保持される）
+#
+# 変更するときはこのスクリプト内の MANAGED_JSON を編集すること。
+# chezmoi re-add は使わない（実ファイルの社内情報が repo に入る）。
+
+set -eu
+
+managed=$(cat <<'MANAGED_JSON'
 {
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
@@ -5,7 +24,6 @@
   "permissions": {
     "allow": [
       "Read(**)",
-      "Write(**)",
       "WebSearch(*)",
       "Bash(git *)",
       "Bash(npm *)",
@@ -22,91 +40,62 @@
     "deny": [
       "Read(~/.ssh/**)",
       "Edit(~/.ssh/**)",
-      "Write(~/.ssh/**)",
       "Read(~/.aws/**)",
       "Edit(~/.aws/**)",
-      "Write(~/.aws/**)",
       "Read(~/.gnupg/**)",
       "Edit(~/.gnupg/**)",
-      "Write(~/.gnupg/**)",
       "Read(~/.config/gcloud/**)",
       "Edit(~/.config/gcloud/**)",
-      "Write(~/.config/gcloud/**)",
       "Read(~/.kube/**)",
       "Edit(~/.kube/**)",
-      "Write(~/.kube/**)",
       "Read(~/.docker/**)",
       "Edit(~/.docker/**)",
-      "Write(~/.docker/**)",
       "Read(**/.env)",
       "Edit(**/.env)",
-      "Write(**/.env)",
       "Read(**/.env.*)",
       "Edit(**/.env.*)",
-      "Write(**/.env.*)",
       "Read(**/.envrc)",
       "Edit(**/.envrc)",
-      "Write(**/.envrc)",
       "Read(**/credentials.json)",
       "Edit(**/credentials.json)",
-      "Write(**/credentials.json)",
       "Read(**/credentials.yaml)",
       "Edit(**/credentials.yaml)",
-      "Write(**/credentials.yaml)",
       "Read(**/secrets.json)",
       "Edit(**/secrets.json)",
-      "Write(**/secrets.json)",
       "Read(**/secrets.yaml)",
       "Edit(**/secrets.yaml)",
-      "Write(**/secrets.yaml)",
       "Read(**/*api_key*)",
       "Edit(**/*api_key*)",
-      "Write(**/*api_key*)",
       "Read(**/*apikey*)",
       "Edit(**/*apikey*)",
-      "Write(**/*apikey*)",
       "Read(**/*secret*)",
       "Edit(**/*secret*)",
-      "Write(**/*secret*)",
       "Read(**/*token*)",
       "Edit(**/*token*)",
-      "Write(**/*token*)",
       "Read(**/*.pem)",
       "Edit(**/*.pem)",
-      "Write(**/*.pem)",
       "Read(**/*.key)",
       "Edit(**/*.key)",
-      "Write(**/*.key)",
       "Read(**/*.p12)",
       "Edit(**/*.p12)",
-      "Write(**/*.p12)",
       "Read(~/.netrc)",
       "Edit(~/.netrc)",
-      "Write(~/.netrc)",
       "Read(~/.npmrc)",
       "Edit(~/.npmrc)",
-      "Write(~/.npmrc)",
       "Read(~/.pypirc)",
       "Edit(~/.pypirc)",
-      "Write(~/.pypirc)",
-      "Read(/etc/**)",
-      "Edit(/etc/**)",
-      "Write(/etc/**)",
-      "Read(/usr/**)",
-      "Edit(/usr/**)",
-      "Write(/usr/**)",
+      "Read(//etc/**)",
+      "Edit(//etc/**)",
+      "Read(//usr/**)",
+      "Edit(//usr/**)",
       "Read(/var/**)",
       "Edit(/var/**)",
-      "Write(/var/**)",
-      "Read(/System/**)",
-      "Edit(/System/**)",
-      "Write(/System/**)",
-      "Read(/Library/**)",
-      "Edit(/Library/**)",
-      "Write(/Library/**)",
-      "Read(/Applications/**)",
-      "Edit(/Applications/**)",
-      "Write(/Applications/**)",
+      "Read(//System/**)",
+      "Edit(//System/**)",
+      "Read(//Library/**)",
+      "Edit(//Library/**)",
+      "Read(//Applications/**)",
+      "Edit(//Applications/**)",
       "Bash(rm -rf *)",
       "Bash(rm -r *)",
       "Bash(rm -fr *)",
@@ -116,29 +105,21 @@
     ]
   },
   "model": "opus[1m]",
-  "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/explain-ja.sh",
-            "timeout": 10
-          }
-        ]
-      }
-    ]
+  "skillOverrides": {
+    "codebase-design": "off",
+    "find-skills": "off",
+    "pr-drawio": "off",
+    "domain-modeling": "off"
   },
   "statusLine": {
     "type": "command",
     "command": "bash ~/.claude/statusline-command.sh"
   },
   "enabledPlugins": {
-    "skill-creator@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
+    "codex@openai-codex": false,
     "crit@crit": true,
-    "codex@openai-codex": false
+    "skill-creator@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "crit": {
@@ -160,3 +141,29 @@
   "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true
 }
+MANAGED_JSON
+)
+
+existing=$(cat)
+[ -n "$existing" ] || existing='{}'
+
+jq=$(command -v jq 2>/dev/null || true)
+if [ -z "$jq" ]; then
+  # jq が無い環境では実ファイルを壊さない。新規作成時のみ管理側をそのまま書く。
+  if [ "$existing" = '{}' ]; then
+    printf '%s\n' "$managed"
+  else
+    printf '%s' "$existing"
+    echo "modify_settings.json: jq が無いため既存の設定をそのまま維持しました" >&2
+  fi
+  exit 0
+fi
+
+# 実ファイル(stdin)を土台に、管理対象キーだけを上書きする。
+# permissions は allow/deny だけ差し替え、defaultMode 等は実ファイルの値を残す。
+printf '%s' "$existing" | "$jq" --argjson m "$managed" '
+  . as $cur
+  | $cur
+  + ($m | del(.permissions))
+  + { permissions: (($cur.permissions // {}) + ($m.permissions // {})) }
+'
