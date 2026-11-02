@@ -1,0 +1,21 @@
+# chezmoi create_ → ~/.codex/config.toml
+#
+# 新しいマシンで最初に1回だけ作られる基準値。ファイルが既にあれば chezmoi は触らない。
+# Codex が実行時に追記する設定（projects の trust、plugins、mcp_servers、hooks.state、
+# marketplaces、model など）はここで管理しない。
+# 既存マシンへの反映は手で行う。
+
+project_doc_fallback_filenames = ["CLAUDE.md"]
+sandbox_mode = "workspace-write"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+[features]
+plugins = true
+hooks = true
+plugin_hooks = true
+memories = true
+
+[tui]
+status_line = ["project-name", "git-branch", "model-with-reasoning", "five-hour-limit", "weekly-limit", "context-used"]
+status_line_use_colors = true
