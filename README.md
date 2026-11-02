@@ -21,10 +21,12 @@ chezmoi apply
 
 ```
 .
+├── .chezmoi.toml.tmpl           # chezmoi 設定（sourceDir）
+├── .chezmoiignore               # 展開しないファイル
 ├── dot_zshrc                    # Zinit + Starship + カスタム設定読み込み
 ├── exact_dot_zsh/               # シェルのカスタム設定（exact: 管理外ファイルを自動削除）
 │   ├── alias.zsh                #   エイリアス（workspace移動、git rebase等）
-│   ├── path.zsh                 #   mise activate
+│   ├── path.zsh.tmpl            #   mise activate、1Password から API キーを展開
 │   ├── utils.zsh                #   fzf によるhistory/branch検索
 │   └── bindkey.zsh              #   キーバインド（^r: history、^o: branch）
 ├── dot_gitconfig                # Git設定
@@ -33,13 +35,14 @@ chezmoi apply
 │   ├── starship.toml            # Starship プロンプト設定
 │   ├── ghostty/config           # Ghostty / cmux ターミナル設定
 │   └── mise/config.toml         # mise グローバル設定
-├── dot_agents/                  # Claude/Codex共通の指示とskills
-├── private_dot_claude/          # Claude Code固有の設定と共通skillsへのsymlink
+├── dot_agents/                  # Claude/Codex共通の指示（AGENTS.md）と自作skills
+├── private_dot_claude/          # Claude Code設定と共通skillsへのsymlink
+│   └── modify_settings.json     #   settings.json をキー単位で管理
 ├── private_dot_codex/           # Codex設定と共通AGENTS.mdへのsymlink
-├── dot_codex-pluginfile         # Codex pluginの固定バージョン
-├── private_dot_cursor/          # Cursor 設定（mcp.json）
-├── private_Library/...          # Cursor エディタ設定（settings.json, keybindings.json）
+│   └── create_private_config.toml  # config.toml の初期値（初回のみ作成）
 ├── run_onchange_after_install-packages.sh.tmpl  # Brewfile 変更時に brew bundle 実行
+├── run_onchange_after_setup-hotkeys.sh          # 入力ソース切替のショートカット設定
+├── run_onchange_after_setup-macos.sh            # macOS の defaults 設定
 └── _planning/                   # 移行計画・ADR（デプロイ対象外）
     ├── migration-review.md      #   旧dotfilesからの移行判定一覧
     ├── chezmoi-source-layout.md #   ソースディレクトリ設計
@@ -105,18 +108,13 @@ vim dot_Brewfile
 chezmoi apply
 ```
 
-### CodexのSuperpowersを更新する
+### スキル・プラグインを追加・削除する
 
-Codexでは`obra/superpowers`のstable release tagを`dot_codex-pluginfile`に固定する。
-GitHub Actionsが毎週月曜日にupstreamの最新タグを確認し、新版があればIssueを作成する。
+他人製のスキル・プラグインは入れ替えが多いため、chezmoiで管理しない。
+`claude plugin install`、`codex plugin add`、`npx skills add -g`などで直接入れ、有効・無効の状態は各ツールの設定に任せる。
 
-Issueでrelease notesと差分を確認した後、`dot_codex-pluginfile`のタグを更新して適用する。
-
-```bash
-chezmoi apply
-```
-
-`run_onchange_after_install-codex-plugins.sh.tmpl`が固定したmarketplace snapshotを再登録し、プラグインを再インストールする。
+自作のスキルだけを管理する。
+本体は`dot_agents/skills/`に置き、Claude Code向けには`private_dot_claude/skills/symlink_<name>`でリンクする。
 
 ### 別のマシンで同期する
 
