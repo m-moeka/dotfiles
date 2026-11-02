@@ -4,7 +4,6 @@ tap 'xykong/tap', trusted: { cask: 'flux-markdown' }
 
 # CLI tools
 brew 'chezmoi'
-brew 'crit'
 brew 'eza'
 brew 'ghq'
 brew 'git'
